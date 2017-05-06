@@ -1,0 +1,4107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+
+		<meta name="description" content="An attempt to make a useful code editor page">
+		<meta name="author" content="Gayathri Jawahar">
+		<title>Code Editor Project</title>
+		
+		<link href="bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
+		<link href="css/codeEditorCss.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+	      <script src="js/html5shiv-3.7.2.min.js"></script>
+	      <script src="js/respond.min.js"></script>
+	    <![endif]-->
+		
+	</head>
+	<body>
+
+		<nav class="navbar navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand">Code Editor Project</a>
+				</div>
+				<div>
+					<ul class="nav navbar-nav">
+						<li><a id="introLink">Basics</a></li>
+						<li class="dropdown">
+		                <a class="demoLinkSrc" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Javascript - Demos <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+		                  <li><a class="demoLink" data-demo="JS-innerHTML">JS - innerHTML</a></li>
+		                  <li><a class="demoLink" data-demo="JS-HTMLStyles">JS - HTML style</a></li>
+		                  <li><a class="demoLink" data-demo="JS-DocumentWrite">JS - document.write</a></li>
+		                  <li><a class="demoLink" data-demo="JS-alert">JS - alert</a></li>
+		                  <li><a class="demoLink" data-demo="JS-console.log">JS - console.log</a></li>
+		                  <li><a class="demoLink" data-demo="JS-events">JS - events</a></li>
+		                  <li><a class="demoLink" data-demo="JS-strings">JS - strings</a></li>
+		                  <li><a class="demoLink" data-demo="JS-array">JS - array</a></li>
+		                  <li><a class="demoLink" data-demo="JS-===">JS == and ===</a></li>
+		                  <li><a class="demoLink" data-demo="JS-NaN">JS - isNaN</a></li>
+		                  <li><a class="demoLink" data-demo="JS-Numbers">JS - numbers</a></li>
+		                  <li><a class="demoLink" data-demo="JS-Math">JS - Math</a></li>
+		                  <li><a class="demoLink" data-demo="JS-Date">JS - Date</a></li>
+		                  <li><a class="demoLink" data-demo="JS-typeOf">JS - typeOf</a></li>
+		                  <li><a class="demoLink" data-demo="JS-this">JS - this</a></li>
+		                  <li><a class="demoLink" data-demo="JS-mutable">JS - mutable object</a></li>
+		                  <li><a class="demoLink" data-demo="JS-prototype">JS - object prototype</a></li>
+		                  <li><a class="demoLink" data-demo="JS-bubblingAndCapturing">JS - bubbling and capturing</a></li>
+		                  <li><a class="demoLink" data-demo="JS-domSelection">JS - DOM selection</a></li>
+		                  <li><a class="demoLink" data-demo="JS-tryCatch">JS - try and catch</a></li>
+		                </ul>
+		        </li>
+		        <li class="dropdown">
+		                <a class="demoLinkSrc" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">jQuery - Demos <span class="caret"></span></a>
+		                <ul class="dropdown-menu">
+		                  <li><a class="demoLink" data-demo="JQ-ready">jQuery - ready</a></li>
+		                  <li><a class="demoLink" data-demo="JQ-DOMSelection">jQuery - DOM selection</a></li>
+		                  <li><a class="demoLink" data-demo="JQ-events">jQuery - Events</a></li>
+		                  <li><a class="demoLink" data-demo="JQ-effects">jQuery - Effects</a></li>
+		                  <li><a class="demoLink" data-demo="JQ-traversing">jQuery - DOM Traversing</a></li>
+		                </ul>
+		        </li>
+					</ul>
+
+					
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a id="runCode" data-toggle="tooltip" title="Double Click" data-placement="right">Run</a></li>
+						<!--<li><a id="runCode" href="#" >Run</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div id="codeEditor" class="container">
+
+			<a class="text-muted text-center center-block" href="#" id="demoName"></a>
+
+			<span class="boxsplitter-vertical glyphicon glyphicon-triangle-bottom col-resize"></span> 
+			<div class="main-container">
+				<div><span class="boxsplitter-col1 glyphicon glyphicon-triangle-right row-resize"></span></div>
+				<div class="col-md-6 no-margin-padding" id="col1">
+					<div class="chiefSection" id="htmlCode" data-toggle="tooltip" title="HTML" data-placement="left">
+						<textarea id="htmlCodeTextArea"></textarea>
+					</div> 
+					<div class="chiefSection" id="jsCode" data-toggle="tooltip" title="JS" data-placement="left">
+						<textarea id="jsCodeTextArea"></textarea>
+					</div>
+				</div>
+				<div class="col-md-6 no-margin-padding" id="col2">
+					<div class="chiefSection" id="cssCode" data-toggle="tooltip" title="CSS" data-placement="right">
+						<textarea id="cssCodeTextArea"></textarea>
+					</div>
+					<div class="chiefSection" id="output" data-toggle="tooltip" title="OUTPUT" data-placement="right">
+						<iframe id="outputFrame"></iframe>
+					</div>
+				</div>
+				<div><span class="boxsplitter-col2 glyphicon glyphicon-triangle-left row-resize"></span></div>
+			</div>
+		</div>
+
+		<div id="intro" class="container">
+
+			<div id="tabs">
+			  <ul>
+			    <li><a href="#tabs-1">Basics</a></li>
+			    <li><a href="#tabs-2">Some Questions</a></li>
+			  </ul>
+			  <div id="tabs-1">
+				<div>
+
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="4"></li>	
+					    <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="7"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="8"></li>			
+					    <li data-target="#carousel-example-generic" data-slide-to="9"></li>	 
+					    <li data-target="#carousel-example-generic" data-slide-to="10"></li>	  
+					    <li data-target="#carousel-example-generic" data-slide-to="11"></li>	  
+					    <li data-target="#carousel-example-generic" data-slide-to="12"></li>
+					    <li data-target="#carousel-example-generic" data-slide-to="13"></li>  
+					    <li data-target="#carousel-example-generic" data-slide-to="14"></li>   
+					    <li data-target="#carousel-example-generic" data-slide-to="15"></li>    
+					    <li data-target="#carousel-example-generic" data-slide-to="16"></li>   
+					    <li data-target="#carousel-example-generic" data-slide-to="17"></li> 
+					    <li data-target="#carousel-example-generic" data-slide-to="18"></li> 
+					    <li data-target="#carousel-example-generic" data-slide-to="19"></li> 
+					    <li data-target="#carousel-example-generic" data-slide-to="20"></li> 
+					    <li data-target="#carousel-example-generic" data-slide-to="21"></li> 
+					    <li data-target="#carousel-example-generic" data-slide-to="22"></li>    
+					  </ol>
+
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner" role="listbox">
+					    <div class="item active">
+					      <div class="carousel-caption title">
+					        Javascript
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Primitive data types
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	Numbers, eg. 123, 120.50 etc.
+						      	<br/>
+						      	Strings of text e.g. "This text string" etc.
+						      	<br/>
+						      	Boolean e.g. true or false.
+					        </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					       	Variable declaration
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	Semicolons separate JavaScript statements.
+					        	<br/>
+					        	var a = 25;
+						      	<br/>
+						      	var a = "hello";
+						      	<br/>
+						      	var a = true;
+						      	<br/>
+						      	var a = ["one", "two"]; //Array
+						      	<br/>
+						      	var a = {item : "test"}; //Object
+					        </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content-center" >
+					        Javascript is case sensitive
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+						        For example, Name and name are two different variables.
+						      </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Comments
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	 //
+						      	<br/>
+						      	/* */
+						      	<br/>
+						      	&lt;!-- //--&gt;
+					        </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Arithmetic Operators
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<table class="table content-table center-block text-center" style="width:300px;">
+										<tbody><tr>
+										<th style="width:50%">Operator</th>
+										<th>Description</th>
+										</tr>
+										<tr>
+										<td>+</td>
+										<td>Addition</td>
+										</tr>
+										<tr>
+										<td>-</td>
+										<td>Subtraction</td>
+										</tr>
+										<tr>
+										<td>*</td>
+										<td>Multiplication</td>
+										</tr>
+										<tr>
+										<td>/</td>
+										<td>Division</td>
+										</tr>
+										<tr>
+										<td>%</td>
+										<td>Modulus</td>
+										</tr>
+										<tr>
+										<td>++</td>
+										<td>Increment</td>
+										</tr>
+										<tr>
+										<td>--</td>
+										<td>Decrement</td>
+										</tr>
+										</tbody></table>
+					        </div>
+					      </div>
+					    </div>
+
+
+					   	<div class="item">
+					      <div class="carousel-caption content" >
+					        Conditional statements
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<pre class="pre-height-md"><code>
+if (condition1) {
+ block of code to be executed if condition1 is true
+} else if (condition2) {
+ block of code to be executed if the condition1 is false and condition2 is true
+} else {
+ block of code to be executed if the condition1 is false and condition2 is false
+}
+								</pre></code>
+						     </div>
+					      </div>
+					    </div>
+
+					   	<div class="item">
+					      <div class="carousel-caption content" >
+					        Switch statements
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<pre class="pre-height-md"><code>
+switch(expression) {
+ case n:
+  code block
+  break;
+ case n:
+  code block
+  break;
+ default:
+  default code block
+}
+								</pre></code>
+						     </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content" >
+					        For loop
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<pre class="pre-height-md"><code>
+for (statement 1; statement 2; statement 3) {
+ code block to be executed
+}
+
+var x;
+for(x in array){
+ code block
+}
+								</pre></code>
+						     </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content" >
+					        While loop
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<pre class="pre-height-md"><code>
+while (condition) {
+ code block to be executed
+}
+
+do {
+ code block to be executed
+}
+while (condition);
+								</pre></code>
+						     </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Function
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        	<pre class="pre-height-md"><code>
+function name(parameter1, parameter2, parameter3) {
+ code to be executed
+}
+								</pre></code>
+					        </div>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content-center">
+					        Including Javascript in html
+					      </div>
+					    </div>
+
+							<div class="item">
+					      <div class="carousel-caption content">
+					        Including file in body section
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;script type="text/javascript"&gt;
+ var myVar = "global"; // Declare a global variable
+ function checkscope( ) {
+  var myVar = "local";  // Declare a local variable
+  document.write(myVar); // Output will be local
+ }
+&lt;/script&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Including script in head section
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;script&gt;
+   function callMe(){
+    alert("Hello");
+   }
+  &lt;/script&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div onclick="callMe()"&gt;
+   Hello
+  &lt;/div&gt;
+ &lt;/body&gt;
+&lt;html&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Including script in body section
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;html&gt;
+ &lt;head&gt;&lt;/head&gt;
+   
+ &lt;body&gt;
+  &lt;div onclick="callMe()"&gt;
+   Hello
+  &lt;/div&gt;
+
+  &lt;script&gt;
+   function callMe(){
+    alert("Hello");
+   }
+  &lt;/script&gt;
+ &lt;/body&gt;
+&lt;html&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Including file in head section
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;html&gt;
+
+ &lt;head&gt;
+  &lt;script type="text/javascript" src="js/jquery-1.11.3.min.js" &gt;&lt;/script&gt;
+ &lt;/head&gt;
+
+ &lt;body&gt;
+  .......
+ &lt;/body&gt;
+&lt;html&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Including file in body section
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;html&gt;
+
+ &lt;head&gt;
+ &lt;/head&gt;
+
+ &lt;body&gt;
+  .......
+  &lt;script type="text/javascript" src="js/jquery-1.11.3.min.js" &gt;&lt;/script&gt;
+ &lt;/body&gt;
+&lt;html&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption content">
+					        Including file dynamically
+					        <br/>
+					        <br/>
+							<pre class="pre-height-md"><code>
+&lt;script type="application/javascript"&gt;
+ function loadJS(file) {
+  //DOM: Create the script element
+  var jsElm = document.createElement("script");
+  //set the type attribute
+  jsElm.type = "application/javascript";
+  //make the script element load file
+  jsElm.src = file;
+  //insert the element to the body element in order to load the script
+  document.body.appendChild(jsElm);
+ }
+&lt;/script&gt;
+&lt;button onclick="loadJS('file1.js');"&gt;Load file1.js&lt;/button&gt;
+&lt;button onclick="loadJS('file2.js');"&gt;Load file2.js&lt;/button&gt;
+							</code></pre>
+					      </div>
+					    </div>
+
+					    <div class="item">
+					      <div class="carousel-caption title">
+					        jQuery
+					      </div>
+					    </div>
+
+					<div class="item">
+					      <div class="carousel-caption content">
+					        jQuery is a JavaScript Library
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+					        Shortcut used can be $ or jQuery
+							<br/>
+							Browser compatibility handled
+							<br/>
+							write less , do more.
+					        </div>
+					      </div>
+					    </div>
+
+					  <div class="item">
+					      <div class="carousel-caption title">
+					        Asynchronous Javascript And XML
+					      </div>
+					    </div>
+
+					<div class="item">
+					      <div class="carousel-caption content">
+					        Javascript - Ajax
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+							<pre class="pre-height-md"><code>
+function loadXMLDoc()
+ {
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+   {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+   }
+  else
+   {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+   }
+  xmlhttp.onreadystatechange=function()
+   {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+   }
+   xmlhttp.open("GET","url",true);
+   xmlhttp.send();// Inside send, you can send data if POST
+ }
+							</code></pre>
+					        </div>
+					      </div>
+					    </div>
+
+					    					<div class="item">
+					      <div class="carousel-caption content">
+					        jQuery - Ajax
+					        <br/>
+					        <br/>
+					        <div class="content-small">
+							<pre class="pre-height-md"><code>
+$.ajax({
+ type: "POST",
+ url: url,
+ data: data,
+ success: function(){},
+ error: function(){},
+ dataType: dataType,
+ async:false,
+ contentType:'',//request type
+ dataType:''//response type
+});
+							</code></pre>
+					        </div>
+					      </div>
+					    </div>
+					    
+
+					  </div>
+
+					  <!-- Controls -->
+					  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
+					</div>
+				</div>
+			</div>
+			  <div id="tabs-2" >
+			  	<div class="text main-container">
+
+			  		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading1">
+						      <h4 class="panel-title">
+						        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+						         1.  What are the Java Script Data Types?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+						      <div class="panel-body">
+						        Primitive : Numbers, string and boolean
+						        <br/>
+										Arrays ([]) and Objects ({}) - both return object when checked with typeof, because in js, array is special type of object
+										<br/>
+										Js expressions are evaluated left to right. 
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading2">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+						          2.  What are === and !=== in javascript?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+						      <div class="panel-body">
+						        === denotes equal value and equal type
+						        <br/>
+										!=== denotes not equal value or not equal type
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading3">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+						          3.	Difference between JS Undefined and Null
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+						      <div class="panel-body">
+						        Undefined means a variable has been declared but has not yet been assigned a value. On the other hand, null is an assignment value. 
+						        <br/>
+						        It can be assigned to a variable as a representation of no value. Also, undefined and null are two distinct types: undefined is a type itself (undefined) while null is an object.
+						        <br/>
+											Empty values "" are of string type, not null nor undefined
+						        	<br/>
+											typeof undefined             // undefined
+											<br/>
+											typeof null                  // object
+											<br/>
+											null === undefined           // false
+											<br/>
+											null == undefined            // true
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading4">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+						          4.	Javascript ajax ?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+						      <div class="panel-body">
+						      	<pre><code>
+function loadXMLDoc()
+ {
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+   {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+   }
+  else
+   {// code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+   }
+  xmlhttp.onreadystatechange=function()
+   {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+   }
+   xmlhttp.open("GET","url",true);
+   xmlhttp.send();// Inside send, you can send data if POST
+ }
+										</code></pre>
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading5">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+						          5.	Where do you place javascript in HTML? What is the correct position?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+						      <div class="panel-body">
+						        Javascript should be placed at the bottom of the page. Before the closing tag of body. Because whenever browser sees a script tag, it pauses parsing to execute the script first.  This will lead to page load delay. This solution works for both old and modern browsers. 
+										<br/>
+	Alternatively in modern browsers, defer (&lt;scrip defer&gt;) can be used in the script tag which doesn't pause the parser but waits for the parser to complete and then executes the script. Also using defer ensures that the scripts will be executed in the order given in the page. This becomes useful when handling jquery, where other scripts might need the jquery js file first.
+										<br/>
+	Another option is to use async (&lt;script async&gt;). This is similar to defer, but it doesn’t ensure the order of execution but executes any script thats available after the page is parsed.
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading6">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+						          6.	How can you use ajax in UI . Why would you used it?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+						      <div class="panel-body">
+						        Ajax can be used to get data dynamically from the server without reloading the entire page. 
+						        <br/>
+						        This makes for better user experience.
+						      </div>
+						    </div>
+						  </div>
+
+
+							<div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading7">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+						          7.	JavaScript Errors - Throw and Try to Catch?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+						      <div class="panel-body">
+						        try{}catch(err){err.message}finally{}
+						        <br/>
+										try{throw}catch(err){err}finally{}
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading8">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+						          8.	How do you debug JavaScript errors? 
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+						      <div class="panel-body">
+						        Developer tools (F12), console in browser. Firebug for mozilla. 
+						        <br/>
+										Breakpoints are available in them. This can be done using by adding the line debugger; in js.
+										<br/>
+										console.log(data); can be added to show some value in console window of the developer tool.
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading9">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+						          9.	JavaScript Cookies?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+						      <div class="panel-body">
+						        Setting cookies:
+						        <br/>
+										document.cookie = "name:value; expires=time; path=/";
+										<br/>
+										Time can be obtained this way 
+								  	<br/>
+								  		var d = new Date();
+								    <br/>
+								      		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+								    <br/>
+								     		var timeStr= d.toUTCString();
+								    <br/>
+										A string should be set in document.cookie
+										<br/>
+										name:value is the actual data. By default cookies get deleted when browser is closed. So for future expires is needed Default path is the path of the current page.
+										<br/>
+										<br/>
+										Overwriting cookie: By setting the same "name" in cookie, the cookie name's value will be overwritten.
+										<br/>
+										<br/>										
+										Adding cookie: By setting the different name, the new name=value pair will be added to the old cookie.
+										<br/>
+										<br/>
+										Deleting cookie: By setting an old time in expires, the cookie can be deleted.
+										<br/>
+										<br/>											
+										Getting cookie:
+										<br/>
+										To get cookie, we need to split the data as below
+										<br/>
+										document.cookie.split(';');
+										<br/>
+										From the resulting array, remove any space and search for the cookie name (indexOf). From there take the value by substring.
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading10">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+						         	10.  What are the problems we faced using global variables in javascript?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+						      <div class="panel-body">
+						       It might cause conflict with another variable in another javascript file. 
+										<br/>
+						       They are slower to access causing performance issues. It makes the code less readable. 
+										<br/>
+						       They are sometimes omitted by the debugger.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading11">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
+						         	11.	 Why we place javascript separately?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+						      <div class="panel-body">
+						       To separate the controller from the view. And to make the js code reusable in other pages as well. 
+						       <br/>
+						       It makes code more readable.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading12">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
+						         	12.	 How can u find the elements in DOM? 
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+						      <div class="panel-body">
+							      by id : getElementById("id")
+							      <br/>
+										by tag name : getElementsByTagName("tag") -> returns an array of objects
+										<br/>
+										by class name : getElementsByClassName("classname")  -> returns an array of objects
+										<br/>
+										by CSS selectors : querySelectorAll("css selector")  -> returns an array of objects
+										<br/>
+										by HTML object collections : e.g. document.forms("form id") 
+										<br/>
+											This also returns an array of objects. The same can be applied for others as well.document.anchors,document.body,document.documentElement,document.embeds,document.forms,document.head,document.images,document.links,document.scripts,document.title 
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading13">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse13" aria-expanded="false" aria-controls="collapse13">
+						         	13.	jQuery - AJAX get() and post() Methods?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading13">
+						      <div class="panel-body">
+						      $.get(URL,callback,datatype);      // data given after url?name=value&name=value
+						      <br/>
+									$.post(URL,data,callback, datatype);
+									<br/>
+									data should be js object {name:"value", name:"value"}
+									<br/>
+									callback can be given as this function(data, status,xhr)
+									<br/>
+									Check the status and handle the data. Status can be ("success", "notmodified", "error", "timeout", or "parsererror")
+									<br/>
+									GET: for small request, because of url length limit, can send only some data. Cached. As data is in the url, not very secure. Can be bookmarked.
+									<br/>
+									POST: can send more data. Not cached.
+									<br/>
+									For synchronous settings, can use the below. 
+									<br/>
+									$.ajaxSetup({async:false});
+									<br/>
+									Other variations, $.getJSON, $.load, $.getScript (for executing remote js)
+									<br/>
+									Note: The above sets all ajax calls as asynchronous. we can customize each call using common ajax function as below
+									<br/>
+										$.ajax({
+								  <br/>
+								  	type: "POST",
+								  	<br/>
+								  	url: url,
+								  	<br/>
+								  	data: data,
+								  	<br/>
+								  	success: success,
+								 		<br/> 
+								  	dataType: dataType
+									<br/>
+									});	
+
+									<br/>
+									$.ajax({url:"",success:function(){},async:false}); // Here many params such as data, username, password, cache (default is true) etc can be sent
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading14">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse14" aria-expanded="false" aria-controls="collapse14">
+						         	14.	What is the use of Minified version in Jquery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
+						      <div class="panel-body">
+						       Minified jquery file removes all unnecessary characters to make the file light weight. 
+						       <br/>
+						       This ensures faster loading time. 
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading15">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse15" aria-expanded="false" aria-controls="collapse15">
+						         	15.	Which one is faster ID or Class?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
+						      <div class="panel-body">
+						       Id is faster. As its unique. 
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading16">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse16" aria-expanded="false" aria-controls="collapse16">
+						         	16.	How to read, write and delete cookies in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading16">
+						      <div class="panel-body">
+						      	We need a jquery plugin for this.
+						      	<br/>
+										Set:
+										<br/>
+										$.cookie("name","value",{expires:days,path:"",domain:"",secure:bool});
+										<br/>
+									  	// secure ensures that the cookie can be accessed only with secure connection like https
+									  <br/>	
+										Get:
+										<br/>
+										$.cookie("name");
+										<br/>
+										Update:
+										<br/>
+										$.cookie("name","new value");
+										<br/>
+										delete:
+										<br/>
+										$.cookie("name",null);
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading17">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
+						         	17.	What do you know about jquery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading17">
+						      <div class="panel-body">
+						      	Jquery is a light weight javascript library. 
+						      	<br/>
+						      	It reduces number of lines of code and simplifies many of javascript's complicated features.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading18">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
+						         	18.	What are the ways of defining stylesheet in jquery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
+						      <div class="panel-body">
+						      	link element can be appended to head using .append
+						      	<br/>
+										For switching the file, using .attr function the href can be updated
+										<br/>
+										Using .css, properties can be set.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading19">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse19" aria-expanded="false" aria-controls="collapse19">
+						         	19.	how can u handle $ noconflict in jquery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse19" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading19">
+						      <div class="panel-body">
+						      	In case more than one framework uses the same shortcut, we'll have a scenario, where one framework might not work. So to avoid that we need to remove the conflict as such.
+						      	<br/>
+										This should be the first line to be included in the script.
+						      	<br/>
+										$.noConflict(); -> This removes the lock on $. by jquery. Now jquery can be accessed as jQuery.
+						      	<br/>
+										var jq = $.noConflict(); -> We can have our own variable as a shortcut for this. So instead of $, we will use jq for jquery.
+						      	<br/>
+										We can also pass $ as a parameter to a function as below after noconflict
+						      	<br/>
+											$.noConflict();
+											<br/>
+											jQuery(document).ready(function($){
+									    <br/>
+									    		$("button").click(function(){
+									    <br/>
+									        		$("p").text("jQuery is still working!");
+									    <br/>
+									    			});
+											<br/>
+											});
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading20">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse20" aria-expanded="false" aria-controls="collapse20">
+						         	20.	What is the difference between width() and css.width
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse20" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading20">
+						      <div class="panel-body">
+						       elem.width() returns only the number - 200
+						       <br/>
+									 elem.css("width") returns the complete width - 200px
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading21">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse21" aria-expanded="false" aria-controls="collapse21">
+						         	21.	What is difference between $(this) and ‘this’ in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse21" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading21">
+						      <div class="panel-body">
+						      This is the DOM object, whereas $(this) is the jQuery wrapper around same.
+						      <br/>
+									When using this, you can call DOM methods on it, but not jQuery methods. When using $(this), you can call jQuery methods on it, but not DOM methods.
+									<br/>
+									E.g. InnerHTML Is for for dom and html() is for jquery
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading22">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse22" aria-expanded="false" aria-controls="collapse22">
+						         	22.	What is jQuery.holdReady() function?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse22" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading22">
+						      <div class="panel-body">
+						      Hold ready is used for preventing the triggering of ready event, even after the dom is ready.  It's used for loading plugins which is needed for the page.  To stop the triggering, the holdReady should be passed with argument true..Then the  plugins can be loaded. After that,  the holdReady should be set to false.  This Should be placed before the ready call.
+						      <br/>
+											$.holdReady(true);
+											<br/>
+											$.getScript("myplugin.js", function() {
+											<br/>
+												$.holdReady(false);
+											<br/>
+											});
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading23">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse23" aria-expanded="false" aria-controls="collapse23">
+						         	23.	Is window.onload is different from document.ready()?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse23" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading23">
+						      <div class="panel-body">
+						       Onload waits for the entire content to load including the images which might take time. ready waits till the dom is loaded. So it takes less time and the necessary js bindings can be done on time.
+						       <br/>
+									 There can be only one onload but many ready.  But it's not good for the readability of the code.
+									 <br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading24">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse24" aria-expanded="false" aria-controls="collapse24">
+						         	24.	What is difference between sorting string array and sorting numerical array in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse24" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading24">
+						      <div class="panel-body">
+						       In jquery sorting is done by arrayVar.sort() function. But this is sorted based on unicode values. So its all treated as string. So numbers will be treated as string as well. (Upper case and lower case also will be considered in sorting).
+
+						       <br/>
+										So, to sort numbers properly we need to give a comparison function to sort as below. The function should be in such a way that the return value should be one of these =0, &gt;0 , &lt;0 . Based on this return value, the value will be pushed above/below unchanged in the sorting order.
+										<br/>
+	 									var list= [ 45, 32, 98, 24, 16, 9, 3];
+	 									<br/>
+ 	 										list = list.sort(function(a,b){
+        						<br/>
+        							return a-b;
+    								<br/>
+    								});
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading25">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse25" aria-expanded="false" aria-controls="collapse25">			         		
+											25.	What are jQuery Selectors?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse25" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading25">
+						      <div class="panel-body">
+
+										<table border="1" cellspacing="0" cellpadding="0">
+										    <tbody>
+										        <tr>
+										            <td width="154">
+										                <p align="left">
+										                    Selector
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p align="left">
+										                    Example
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p align="left">
+										                    Selects
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_all.asp"><u>*</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("*")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_id.asp"><u>#<em>id</em></u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("#lastname")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The element with id="lastname"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_class.asp"><u>.<em>class</em></u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(".intro")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with class="intro"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_multiple_classes.asp"><u>.<em>class,</em>.<em>class</em></u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(".intro,.demo")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with the class "intro" or "demo"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_element.asp"><em><u>element</u></em></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_multiple_sel.asp"><em><u>el1</u></em><u>,<em>el2</em>,<em>el3</em></u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("h1,div,p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;h1&gt;, &lt;div&gt; and &lt;p&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_first.asp"><u>:first</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:first")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The first &lt;p&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_last.asp"><u>:last</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:last")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The last &lt;p&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_even.asp"><u>:even</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("tr:even")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All even &lt;tr&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_odd.asp"><u>:odd</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("tr:odd")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All odd &lt;tr&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_firstchild.asp"><u>:first-child</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:first-child")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the first child of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_firstoftype.asp"><u>:first-of-type</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:first-of-type")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the first &lt;p&gt; element of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_lastchild.asp"><u>:last-child</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:last-child")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the last child of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_lastoftype.asp"><u>:last-of-type</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:last-of-type")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the last &lt;p&gt; element of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_nthchild.asp"><u>:nth-child(<em>n</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:nth-child(2)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the 2nd child of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_nthlastchild.asp"><u>:nth-last-child(<em>n</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:nth-last-child(2)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the 2nd child of their parent, counting from the last child
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_nthoftype.asp"><u>:nth-of-type(<em>n</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:nth-of-type(2)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_nthlastoftype.asp"><u>:nth-last-of-type(<em>n</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:nth-last-of-type(2)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the 2nd &lt;p&gt; element of their parent, counting from the last child
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_onlychild.asp"><u>:only-child</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:only-child")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the only child of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_onlyoftype.asp"><u>:only-of-type</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:only-of-type")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are the only child, of its type, of their parent
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_parent_child.asp"><u>parent &gt; child</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("div &gt; p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are a direct child of a &lt;div&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_parent_descendant.asp"><u>parent descendant</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("div p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are descendants of a &lt;div&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_previous_next.asp"><u>element + next</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("div + p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The &lt;p&gt; element that are next to each &lt;div&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_previous_siblings.asp"><u>element ~ siblings</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("div ~ p")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements that are siblings of a &lt;div&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_eq.asp"><u>:eq(<em>index</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("ul li:eq(3)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The fourth element in a list (index starts at 0)
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_gt.asp"><u>:gt(<em>no</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("ul li:gt(3)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    List elements with an index greater than 3
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_lt.asp"><u>:lt(<em>no</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("ul li:lt(3)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    List elements with an index less than 3
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_not.asp"><u>:not(<em>selector</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("input:not(:empty)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements that are not empty
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_header.asp"><u>:header</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":header")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All header elements &lt;h1&gt;, &lt;h2&gt; ...
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_animated.asp"><u>:animated</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":animated")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All animated elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_focus.asp"><u>:focus</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":focus")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The element that currently has focus
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_contains.asp"><u>:contains(<em>text</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":contains('Hello')")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements which contains the text "Hello"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_has.asp"><u>:has(<em>selector</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("div:has(p)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;div&gt; elements that have a &lt;p&gt; element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_empty.asp"><u>:empty</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":empty")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements that are empty
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_parent.asp"><u>:parent</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":parent")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements that are a parent of another element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_hidden.asp"><u>:hidden</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:hidden")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All hidden &lt;p&gt; elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_visible.asp"><u>:visible</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("table:visible")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All visible tables
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_root.asp"><u>:root</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":root")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    The document's root element
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_lang.asp"><u>:lang(<em>language</em>)</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("p:lang(de)")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All &lt;p&gt; elements with a lang attribute value starting with "de"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute.asp"><u>[<em>attribute</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[href]")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a href attribute
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_equal_value.asp"><u>[<em>attribute</em>=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[href='default.htm']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a href attribute value equal to "default.htm"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_notequal_value.asp"><u>[<em>attribute</em>!=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[href!='default.htm']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a href attribute value not equal to "default.htm"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_end_value.asp"><u>[<em>attribute</em>$=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[href$='.jpg']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a href attribute value ending with ".jpg"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_prefix_value.asp"><u>[<em>attribute</em>|=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[title|='Tomorrow']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a title attribute value equal to 'Tomorrow', or starting with 'Tomorrow' followed by a hyphen
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_beginning_value.asp"><u>[<em>attribute</em>^=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[title^='Tom']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a title attribute value starting with "Tom"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_contains_value.asp"><u>[<em>attribute</em>~=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[title~='hello']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a title attribute value containing the specific word "hello"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_attribute_contains_string_value.asp"><u>[<em>attribute*</em>=<em>value</em>]</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $("[title*='hello']")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All elements with a title attribute value containing the word "hello"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input.asp"><u>:input</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":input")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_text.asp"><u>:text</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":text")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="text"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_password.asp"><u>:password</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":password")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="password"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_radio.asp"><u>:radio</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":radio")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="radio"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_checkbox.asp"><u>:checkbox</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":checkbox")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="checkbox"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_submit.asp"><u>:submit</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":submit")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="submit"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_reset.asp"><u>:reset</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":reset")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="reset"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_button.asp"><u>:button</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":button")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="button"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_image.asp"><u>:image</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":image")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="image"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_file.asp"><u>:file</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":file")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All input elements with type="file"
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_enabled.asp"><u>:enabled</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":enabled")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All enabled input elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_disabled.asp"><u>:disabled</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":disabled")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All disabled input elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_selected.asp"><u>:selected</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":selected")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All selected input elements
+										                </p>
+										            </td>
+										        </tr>
+										        <tr>
+										            <td width="154">
+										                <p>
+										                    <a href="http://www.w3schools.com/jquery/sel_input_checked.asp"><u>:checked</u></a>
+										                </p>
+										            </td>
+										            <td width="174">
+										                <p>
+										                    $(":checked")
+										                </p>
+										            </td>
+										            <td width="503">
+										                <p>
+										                    All checked input elements
+										                </p>
+										            </td>
+										        </tr>
+										    </tbody>
+										</table>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading26">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse26" aria-expanded="false" aria-controls="collapse26">
+						         	26.	What is the use of find() and children method in jquery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse26" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading26">
+						      <div class="panel-body">
+						       Both find() and children() methods are used to filter the child of the matched elements, except the former is travels any level down, the latter is travels a single level down.
+						       <br/>
+									To simplify
+									<br/>
+									find() – search through the matched elements’ child, grandchild, great-grandchild…any levels down.
+									<br/>
+									$('.B1').find('.child').css('background','red');
+									<br/>
+									children()– search through the matched elements’ child only (single level down).
+									<br/>
+										$('.B1').children('.child').css('background','red');
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading27">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse27" aria-expanded="false" aria-controls="collapse27">
+						         	27.	What is .siblings() method in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse27" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading27">
+						      <div class="panel-body">
+						       The siblings() method returns all sibling elements of the selected element. E.g.
+						       	<br/>
+										Return all sibling elements of each <li> element with class name "start" 
+										<br/>
+										$("li.start").siblings().css({"color": "red", "border": "2px solid red"}); 
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading28">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse28" aria-expanded="false" aria-controls="collapse28">
+						         	28.	Explain bind() vs live() vs delegate() vs on() methods.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse28" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading28">
+						      <div class="panel-body">
+						       Using click as example event below
+						       <br/>
+										Bind() :
+										<br/>
+										$( "a" ).bind( “click”, function(){}) ; 
+										<br/>
+										Shortcut of this is $(“a”).click(function(){});
+										<br/>
+										In bind, the event handler is attached to all existing links (in this case) that are currently present in the DOM. This uses more memory . Also, any links added dynamically in the future will not have this handler attached. 
+										<br/>
+										Opposite is  $(“a”).unbind();
+										<br/>
+										live() :
+										<br/>
+										$( "a" ).live( “click”, function(){});
+										<br/>
+										 In this the handler is delegated to document. So, any dynamically added new links will also work with the event handler. But because it delegates the handler to the document, it affects the performance. Also chaining is not properly supported in this. Live and die are removed in jquery 1.9 and should not be used.
+										 <br/>
+										Opposite is  $(“a”).die();
+										<br/>
+										delegate():
+										<br/>
+										$( "table" ).delegate( "td", "click", function() {});
+										<br/>
+										In this, unlike live, the handler is delegated to the selector (table). So it doesnt affect performance. So in this case, any existing or new td of the table will have the event handler working for it. Also it supports chaining.
+										<br/>
+										Opposite is $(“table”)undelegate();
+										<br/>
+										on():
+										<br/>
+										$( "#dataTable tbody tr" ).on( "click", function() { }); // acts like bind
+										<br/>
+										$( "#dataTable tbody" ).on( "click", "tr", function() { }); // acts like delegate
+										<br/>
+										on is the recommended one introduced in 1.7 which is intended to replace all the above.
+										<br/>
+										Opposite is $(“table”).off();
+										<br/>
+										Note: In all the opposites given, event type and selector can be given to specifically remove the event handler of some events / selectors alone.
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading29">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse29" aria-expanded="false" aria-controls="collapse29">
+						         	29.	Whats the difference between addEventListener and attachEvent?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse29" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading29">
+						      <div class="panel-body">
+						       Both have the same purpose of attaching events to an element. But attachEvent works for only &lt;IE9 whereas, addEventListener is w3 standard supported by all (&gt;IE8 as well , but not &lt;IE9).
+						       <br/>
+										obj.addEventListener('click', callback, false);
+										<br/>
+										The last boolean in addEventListener is for useCapture. Default is false, so that The event handler is executed in the bubbling phase. It can be set to true for the event handler to be executed in capturing phase.
+										<br/>
+										obj.attachEvent('onclick', callback);
+										<br/>
+										Note: onclick that we give inline in html ( &lt;element onclick=”alert(“Hi”)”&gt; or as element.onclick=”alert(“Hi”)”) are stored as attributes and hence can be overwritten.  Its better to use the above two methods. Checks need to be done to handle older browsers. For more browser compatible version, jquery can be used.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading30">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse30" aria-expanded="false" aria-controls="collapse30">
+						         	30.  What is Chaining in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse30" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading30">
+						      <div class="panel-body">
+						       Chaining is used for run multiple jQuery methods (on the same element) within a single statement. 
+						       <br/>
+									This reduces the code size. Also as all the methods are set for a single selector, jquery need not search for the selector each time. So it improves performance.
+									<br/>
+									Chaining starts from left to right. So the left most method returns an object that is acted on my the next method.
+									<br/>
+									$("#p1").css("color", "red").slideUp(2000).slideDown(2000);
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading31">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse31" aria-expanded="false" aria-controls="collapse31">
+						         	31.	 What is event bubbling and capturing in javascript?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse31" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading31">
+						      <div class="panel-body">
+						       Consider the below html which has one span nested inside the div.
+						    		<br/>
+												&lt;div&gt;
+												<br/>
+										    			DIV
+										    		<br/>
+										    			&lt;span&gt;
+										        <br/>
+										        				Span
+										    		<br/>
+										    			&lt;/span&gt;
+										    		<br/>
+												&lt;div&gt;
+												<br/>
+											Now event handlers are attached to both span and div.
+										    		<br/>
+												$('div').click(function() { alert('div clicked'); });
+												<br/>
+												$('span').click(function() { alert('span clicked'); });
+												<br/>
+
+											When the text Span is clicked on the page, first the event handler of span will be called , then the event handler of div will be called. This is called event bubbling. That is, once the handler on the child is triggered, the handler of the parent is also triggered. (This is applicable for ancestors as well, not just for parents, if they also have event handlers attached to them)
+											<br/>
+										The opposite of this event capturing (trickling down). In that case when span is clicked, first div's handler is called and then span's handler is called. Browsers dont support this by default. Only by using addEventListener(event, callback, true) this behaviour can be replicated.
+											<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading32">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse32" aria-expanded="false" aria-controls="collapse32">
+						         	32.	 What is event stopPropagation in jquery
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse32" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading32">
+						      <div class="panel-body">
+						       To prevent bubbling up of events, stopPropagation can be used. 
+						       <br/>
+										e.g. 
+										<br/>
+										$('div').click(function() { alert('div clicked'); });
+										<br/>
+										$('span').click(function(e) { alert('span clicked'); e.stopPropagation(); });
+										<br/>
+										With respect to the previous example, by adding the e.stopPropagation, after the span's hanlder is called, it will stop and not call the div's handler.
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading33">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse33" aria-expanded="false" aria-controls="collapse33">
+						         	33.	 What is the difference between trigger and triggerHandler in jquery ?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse33" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading33">
+						      <div class="panel-body">
+						      trigger and triggerHandler are used for triggering an event without the user need to do it via the user interface. 
+						      <br/>
+									$('#clickMe').trigger('click');
+						      <br/>
+									$('#clickMe').triggerHandler('click');
+						      <br/>
+									The differences between them are that, triggerHandler prevents bubbling up of events. 
+						      <br/>
+									TriggerHandler works on only the first matched selector, whereas trigger works on all. TriggerHandler prevents the default action of the browser on some events such as select and focus (as can be seen in the style change). 
+						      <br/>
+									Trigger returns jquery object allowing chaining. But triggerHandler returns the whatever value was returned by the last handler it caused to be executed. If no handlers are triggered, it returns undefined 
+
+						      </div>
+						    </div>
+						  </div>
+
+							<div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading34">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse34" aria-expanded="false" aria-controls="collapse34">
+						         	34.	Explain the each() function.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse34" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading34">
+						      <div class="panel-body">
+						      Each() is for used for iterate through jquery objects. It can be used in two ways.
+						      <br/>
+									$.each()
+						      <br/>
+									var myArray = [10,20,30];
+						      <br/>
+										    jQuery.each( myArray, function(index, value) {
+						      <br/>
+									   			console.log('element at index ' + index + ' is ' + value);
+						      <br/>
+										    });
+						      <br/>
+									          //Output
+						      <br/>
+									          element at index 0 is 10
+						      <br/>
+									          element at index 1 is 20
+						      <br/>
+									          element at index 2 is 30
+						      <br/>
+									.each()
+						      <br/>									
+
+									$('#dv').children().each(function(index, element) {
+						      <br/>
+									    	   	console.log('element at index ' + index + 'is ' + (this.tagName);
+							    <br/>
+									    	   	console.log('current element as dom object:' + element);
+									<br/>
+									    	   	console.log('current element as jQuery object:' + $(this));
+									<br/>    	   	
+										   });
+									<br/>
+											//Output
+									<br/>
+											element at index 0 is input
+									<br/>
+											element at index 1 is p
+									<br/>
+											element at index 2 is span
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading35">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse35" aria-expanded="false" aria-controls="collapse35">
+						         	35.	How to apply logical and or to jquery attribute selector?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse35" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading35">
+						      <div class="panel-body">										      
+										    For or comma should be used. For and no space should be given.
+										</br>
+										    e.g.
+										</br>
+										    &lt;users&gt;
+										</br>
+										    &lt;user state="CA" sex="m"&gt;Max&lt;/user&gt;
+										</br>
+										    &lt;user state="AZ" sex="f"&gt;Jen&lt;/user&gt;
+										</br>
+										    &lt;user state="OR" sex="f"&gt;Kim&lt;/user&gt;
+										</br>
+										    &lt;user state="NV" sex="m"&gt;Bob&lt;/user&gt;
+										</br>
+										    &lt;user state="CA" sex="m"&gt;Jon&lt;/user&gt;
+										</br>
+										    &lt;user state="AZ" sex="m"&gt;Jim&lt;/user&gt;
+										</br>
+										    &lt;user state="OR" sex="f"&gt;Joy&lt;/user&gt;
+										</br>
+										    &lt;user state="NV" sex="f"&gt;Amy&lt;/user&gt;
+										</br>
+										    &lt;/users&gt;
+										</br>
+										    $("user[sex='m'][state='CA'], user[sex='m'][state='NV']")
+										</br>
+										    This selector means, either the user with sex m and state CA or the user with sex m and state NV.
+										</br>
+										    The comma denotes the or condition and because no space is given between the attributes, the selector is applied for the same element.
+										    <br/>
+										    <br/>
+										</br>
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading36">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse36" aria-expanded="false" aria-controls="collapse36">
+						         	36.	 What is difference between prop and attr?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse36" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading36">
+						      <div class="panel-body">
+						       In jquery 1.6, prop was introduced causing the difference in usage between prop and attr. 1.6.1 restored most of the old usage of attr. But its advisable to use prop and attr in proper places.
+						       <br/>
+									Window and document do not have attibutes. Anything pertaining to them should be set handled using prop.
+									<br/>
+									Booleans such as checked, selected should also use prop. In these boolean scenarios, the initial value set during page load can accessed using attr , but the current state of those can be obtained using prop only (e.g. for a &lt;input type=”checkbox”&lt; $(“input”).attr(“checkbox”) will always return the string “checkbox”.  Only $(“input”).prop(“checkbox”) will return true or false depending on whether is the checkbox is checked or not.
+									<br/>
+									<br/>
+
+									<table border="1" cellspacing="0" cellpadding="0">
+								    <tbody>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    Attribute/Property
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    .attr()
+								                </p>
+								            </td>
+								            <td width="75">
+								                <p>
+								                    .prop()
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    accesskey
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    align
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    async
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    autofocus
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    checked
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    class
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    contenteditable
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    defaultValue
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    draggable
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    href
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    id
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    label
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    Location (for window location)
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    multiple
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    nodeName
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    nodeType
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    readOnly
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    rel
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    selected
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    selectedIndex
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    src
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    style
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    tabindex
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    tagName
+								                </p>
+								            </td>
+								            <td width="71">
+								            </td>
+								            <td width="75">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    title
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								        <tr>
+								            <td width="181">
+								                <p>
+								                    type
+								                </p>
+								            </td>
+								            <td width="71">
+								                <p>
+								                    ✓
+								                </p>
+								            </td>
+								            <td width="75">
+								            </td>
+								        </tr>
+								    </tbody>
+								</table>
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading37">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse37" aria-expanded="false" aria-controls="collapse37">
+						         	37.	Explain .empty() vs .remove() vs .detach()
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse37" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading37">
+						      <div class="panel-body">
+						       Empty() → This is used to remove all the content/text inside the selected element and the descendants of the selected element. But it keeps the tag intact.
+						       <br/>
+									Remove() → This removes the selected element itself along with its children. It also removes any events added to via jquery and any jquery data (added using data()). Its faster than detach.
+										<br/>
+
+									detach() → detach is similar to remove. But it retains the event information and the jquery data. So the element can be reintroduced again without much issues.
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading38">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse38" aria-expanded="false" aria-controls="collapse38">
+						         	38.	What is resize() function in jQuery?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse38" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading38">
+						      <div class="panel-body">
+						       $(window).resize(); // equivalent to $(window).trigger( "resize" ) 
+						       <br/>
+									 $(window).resize(function(){ }) // equivalent to $(window).on(“resize”,function(){});
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading38">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse38" aria-expanded="false" aria-controls="collapse38">
+						         	39.	What is the use of jQuery.data()?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse38" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading38">
+						      <div class="panel-body">
+						       	Using data method, Data can be added to dom elements. This. Data is specific to the dom element, but for each element to which data is added, a key value pair is set in a object called as $.cache.
+						       	<br/>
+										Handlers can be bound to events involving, setting data, getting data etc.
+										<br/>
+										Data can be set in two ways
+										<br/>
+										-	$(data(jqueryObj),”key”,”value”);// this is not preferred because instead of selector, it prefers object. So the below method is preferred which inturn calls this function.
+										<br/>
+										-	$(“selector”).data(“key”,”value”);
+										<br/>
+										alternatively, an object with key value pair can be passed as a single argument in the above syntax.
+										<br/>
+										To retrieve value, to data, only key can be set as parameter and called. 
+										<br/>
+										Alsoin html5, data- attributes are allowed. E.g. <img data-internal-id=”someVal”>
+										<br/>
+										These can be accessed using, $(“img”).data(“internal-id”);
+										<br/>
+										Because events are supported in data, this method can be used for objects as well. This gives an advantage, because events can be bound to this.
+										<br/>
+										$(“selector”).bind(“event”,callback);
+										<br/>
+										Events can be getData,setData,changeData. The callback function has arguments event,key,value.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading40">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse40" aria-expanded="false" aria-controls="collapse40">
+						         	40.	Some simple jquery effects
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse40" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading40">
+						      <div class="panel-body">
+						       Speed can be slow , fasr or ms<br/>
+										$(selector).hide(speed,callback);<br/>
+										$(selector).show(speed,callback);<br/>
+										$(selector).toggle(speed,callback);<br/>
+										<br/>
+										$(selector).fadeIn(speed,callback);<br/>
+										$(selector).fadeOut(speed,callback);<br/>
+										$(selector).fadeToggle(speed,callback);<br/>
+										$(selector).fadeTo(speed,opacity,callback);<br/>
+										<br/>
+										$(selector).slideDown(speed,callback);<br/>
+										$(selector).slideUp(speed,callback);<br/>
+										$(selector).slideToggle(speed,callback);<br/>
+										<br/>
+										$(selector).animate({params},speed,callback);<br/>
+										The params can be comma separated, lowerCamelCased css property. Animate can be queued. So if two animate functions are given one after the other, an internal queue is formed and the functions are executed in order.<br/>
+										$(selector).stop(stopAll,goToEnd) // the arguments are boolean, default is false. StopAll refers to stopping queued animations as well. GoToend is to see if the current animation should be allowed to complete.<br/>
+										<br/>
+										$(selector).finish() is similar to stop(true,true) except that, with finish, the css is set to the same setting that would have been set once all the queued animations were allowed to be completed ( not just current animation)
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading41">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse41" aria-expanded="false" aria-controls="collapse41">
+						         	41.  Explain about json and javascript objects
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse41" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading41">
+						      <div class="panel-body">
+						       Java Script Object Notation is json. 
+										<br/>
+										JSON is a data interchange format.
+										<br/>
+										var chestOfDrawers = {
+										<br/>
+										    color: "red",
+										<br/>
+										    numberOfDrawers: 4
+										<br/>
+										}
+										<br/>
+										is a js object. Though the color could be in double quotes.
+										<br/>
+										{"color":"red","numberOfDrawers":4}
+										<br/>
+										is json text
+										<br/>
+
+										JSON.stringify(obj) turns an object in to a JSON text and stores that JSON text in a string.
+										<br/>
+										JSON.parse(text) turns a string of JSON text into an object.
+										<br/>
+										In json,
+										<br/>
+										Data is in name/value pairs
+										<br/>
+										Data is separated by commas
+										<br/>
+										Curly braces hold objects
+										<br/>
+										Square brackets hold arrays
+										<br/>
+										The file type for JSON files is ".json"
+										<br/>
+										The MIME type for JSON text is "application/json"
+
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading42">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse42" aria-expanded="false" aria-controls="collapse42">
+						         	42.	How to handle (set, get) json objects?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse42" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading42">
+						      <div class="panel-body">
+						       var employees = [
+						       <br/>
+									    {"firstName":"John", "lastName":"Doe"},<br/>
+									    {"firstName":"Anna", "lastName":"Smith"},<br/>
+									    {"firstName":"Peter","lastName": "Jones"}<br/>
+									];<br/>
+									<br/>
+									// returns John Doe<br/>
+									employees[0].firstName + " " + employees[0].lastName;<br/>
+									<br/>
+									// returns John Doe<br/>
+									employees[0]["firstName"] + " " + employees[0]["lastName"];<br/>
+									<br/>
+									//Setting data<br/>
+									employees[0].firstName = "Gilbert";<br/>
+									employees[0]["firstName"] = "Gilbert";<br/>
+									<br/>
+									//iterating through the data<br/>
+									for (var key in employees ) {<br/>
+									  if (employees.hasOwnProperty(key)) {<br/>
+									    alert(firstName + " -> " + employees[key].firstName);<br/>
+									    alert(lastName + " -> " + employees[key].lastName);<br/>
+									  }<br/>
+									}<br/>
+									<br/>
+									In jquery, $.each() can be used.<br/>
+									<br/>
+									var data = [ <br/>
+									 {"Id": 10004, "PageName": "club"}, <br/>
+									 {"Id": 10040, "PageName": "qaz"}, <br/>
+									 {"Id": 10059, "PageName": "jjjjjjj"}<br/>
+									];<br/>
+									<br/>
+									$.each(data, function(i, item) {<br/>
+									    alert(data[i].PageName);<br/>
+									});<br/>
+									<br/>
+									$.each(data, function(i, item) {<br/>
+									    alert(item.PageName);<br/>
+									});<br/>
+
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading43">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse43" aria-expanded="false" aria-controls="collapse43">
+						         	43.  How to invoke https using ajax. Explain about cors and jsonp.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse43" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading43">
+						      <div class="panel-body">
+						       Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain from which the resource originated.<br/>
+						       <br/>
+										When a CORS-compatible browser attempts to make a cross-origin request:<br/>
+										<br/>
+										The browser sends the request with an Origin HTTP header. The value of this header is the domain that served the parent page. When a page from http://www.foo.com attempts to access a user's data in bar.com, the following request header would be sent to bar.com:<br/>
+										Origin: http://www.foo.com<br/>
+										The server may respond with:<br/>
+										An Access-Control-Allow-Origin (ACAO) header in its response indicating which origin sites are allowed. For example:<br/>
+										Access-Control-Allow-Origin: http://www.foo.com<br/>
+										An error page if the server does not allow the cross-origin request<br/>
+										An Access-Control-Allow-Origin (ACAO) header with a wildcard that allows all domains:<br/>
+										Access-Control-Allow-Origin: *<br/>
+										<br/>
+										The HTTP headers that relate to CORS are:<br/>
+										<br/>
+										Request headers<br/>
+										Origin<br/>
+										Access-Control-Request-Method<br/>
+										Access-Control-Request-Headers<br/>
+										Response headers<br/>
+										Access-Control-Allow-Origin<br/>
+										Access-Control-Allow-Credentials<br/>
+										Access-Control-Expose-Headers<br/>
+										Access-Control-Max-Age<br/>
+										Access-Control-Allow-Methods<br/>
+										Access-Control-Allow-Headers<br/>
+										<br/>
+										JSONP or “JSON with padding” is a communication technique used in JavaScript programs running in web browsers to request data from a server in a different domain, something prohibited by typical web browsers because of the same-origin policy. JSONP takes advantage of the fact that browsers do not enforce the same-origin policy on &lt;script&gt; tags. Since it works through &lt;script&gt; tags, JSONP supports only the GET request method.<br/>
+										<br/>
+										Note that for JSONP to work, a server must know how to reply with JSONP-formatted results. JSONP does not work with JSON-formatted results. The JSONP parameters passed as arguments to a script are defined by the server. A typical JSONP request is similar to the following sample code:<br/>
+										<br/>
+										// Request sent via a script tag <br/>
+										&lt;script src="https://status.github.com/api/status.json?callback=apiStatus"&gt;&lt;/script&gt;<br/>
+										// Data received as an execution of the predefined function. <br/>
+										&lt;script> function apiStatus(data) { console.log(data.status); } &lt;/script&gt;<br/>
+										<br/>
+										or<br/>
+										<br/>
+										&lt;script type="application/javascript"<br/>
+										        src="http://server.example.com/Users/1234?jsonp=parseResponse"&gt;<br/>
+										&lt;/script&gt;<br/>
+										<br/>
+										In this example, the received payload would be:<br/>
+										<br/>
+										parseResponse({"Name": "Foo", "Id": 1234, "Rank": 7});<br/>
+										<br/>
+										CORS can be used as a modern alternative to the JSONP pattern. While JSONP supports only the GET request method, CORS also supports other types of HTTP requests. Using CORS enables a web programmer to use regular XMLHttpRequest, which supports better error handling than JSONP. On the other hand, JSONP works on legacy browsers which predate CORS support. CORS is supported by most modern web browsers.
+										<br/>
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading44">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse44" aria-expanded="false" aria-controls="collapse44">
+						         	44.	What are the different ready states in ajax?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse44" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading44">
+						      <div class="panel-body">
+						       onreadystatechange	Stores a function (or the name of a function) to be called automatically each time the readyState property changes<br/>
+						       <br/>
+									readyState	Holds the status of the XMLHttpRequest. Changes from 0 to 4: <br/>
+									0: request not initialized <br/>
+									1: server connection established<br/>
+									2: request received <br/>
+									3: processing request <br/>
+									4: request finished and response is ready<br/>
+									<br/>
+									status	200: "OK"<br/>
+									404: Page not found<br/>
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading45">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse45" aria-expanded="false" aria-controls="collapse45">
+						         	45.  Difference between data type and content type in ajax.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse45" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading45">
+						      <div class="panel-body">
+						       contentType (default: 'application/x-www-form-urlencoded; charset=UTF-8')<br/>
+						       <br/>
+										Type: String<br/>
+										<br/>
+										When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it'll always be sent to the server (even if no data is sent). If no charset is specified, data will be transmitted to the server using the server's default charset; you must decode this appropriately on the server side.<br/>
+										<br/>
+										dataType (default: Intelligent Guess (xml, json, script, or html))<br/>
+										<br/>
+										Type: String
+										<br/>
+										The type of data that you're expecting back from the server. If none is specified, jQuery will try to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be returned as a string).
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading46">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse46" aria-expanded="false" aria-controls="collapse46">
+						         	46.	Which is fast document.getElementByID('txtName') or $('#txtName').?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse46" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading46">
+						      <div class="panel-body">
+						      Native JavaScipt is always fast. jQuery method to select txtName "$('#txtName')" will internally makes a call to document.getElementByID('txtName'). As jQuery is written on top of JavaScript and it internally uses JavaScript only So JavaScript is always fast.
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading47">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse47" aria-expanded="false" aria-controls="collapse47">
+						         47.	What is a CDN? And how to load it from server when not available?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse47" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading47">
+						      <div class="panel-body">
+						       A content delivery network or content distribution network (CDN) is a large distributed system of servers deployed in multiple data centers across the Internet. The goal of a CDN is to serve content to end-users with high availability and high performance. There are 3 popular jQuery CDNs.<br/>
+										Google, Microsoft,jQuery.<br/>
+										<br/>
+										It reduces the load from your server.<br/>
+										It saves bandwidth. jQuery framework will load faster from these CDN.<br/>
+										The most important benefit is it will be cached, if the user has visited any site which is using jQuery framework from any of these CDN<br/>
+
+										<br/>
+										Below given jQuery code checks whether jQuery is loaded from Google CDN or not, if not then it references the jQuery.js file from your folder.<br/>
+										<br/>
+										&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"&gt;&lt;/script&gt;<br/>
+										&lt;script type="text/javascript"&gt;<br/>
+										if (typeof jQuery == 'undefined')<br/>
+										{<br/>
+										  document.write(unescape("%3Cscript src='Scripts/jquery.1.9.1.min.js' type='text/javascript'%3E%3C/script%3E"));<br/>
+										}<br/>
+										&lt;/script&gt;<br/>
+										It first loads the jQuery from Google CDN and then check the jQuery object. If jQuery is not loaded successfully then it will references the jQuery.js file from hard drive location. In this example, the jQuery.js is loaded from Scripts folder.
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading48">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse48" aria-expanded="false" aria-controls="collapse48">
+						         48.	How to get the version of jquery loaded?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse48" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading48">
+						      <div class="panel-body">
+						      if (typeof jQuery != 'undefined') {  <br/>
+									    // jQuery is loaded => print the version<br/>
+									    alert(jQuery.fn.jquery);<br/>
+									}
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading49">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse49" aria-expanded="false" aria-controls="collapse49">
+						         49.	Which is the best way to trace the progress of a ajax request?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse49" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading49">
+						      <div class="panel-body">
+						      <pre><code>
+
+		      	$.ajax({
+					    xhr: function() {
+					        var xhr = new window.XMLHttpRequest();
+					        xhr.upload.addEventListener("progress", function(evt) {
+					            if (evt.lengthComputable) {
+					                var percentComplete = evt.loaded / evt.total;
+					                //Do something with upload progress here
+					            }
+					       }, false);
+
+					       xhr.addEventListener("progress", function(evt) {
+					           if (evt.lengthComputable) {
+					               var percentComplete = evt.loaded / evt.total;
+					               //Do something with download progress
+					           }
+					       }, false);
+
+					       return xhr;
+					    },
+					    type: 'POST',
+					    url: "/",
+					    data: {},
+					    success: function(data){
+					        //Do something on success
+					    }
+					});
+
+						      </code></pre>
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading50">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse50" aria-expanded="false" aria-controls="collapse50">
+						         50.	Explain how file upload works with formData and jquery ajax post.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse50" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading50">
+						      <div class="panel-body">
+						      In the backend, it’s the same apache common api.
+						      <br/>
+									<pre><code>function uploadFile(blobFile, fileName) {
+									    var fd = new FormData();
+									    fd.append("fileToUpload", blobFile);
+									    var xhr = new XMLHttpRequest();
+									    xhr.open("POST", "upload.php", true);
+									    xhr.send(fd);
+									}</pre></code>
+									<br/>
+
+									<pre><code>function uploadFile(blobFile, fileName) {
+									    var fd = new FormData();
+									    fd.append("fileToUpload", blobFile);
+
+									    $.ajax({
+									       url: "upload.php",
+									       type: "POST",
+									       data: fd,
+									       processData: false,
+									       contentType: false,
+									       success: function(response) {
+									           // .. do something
+									       },
+									       error: function(jqXHR, textStatus, errorMessage) {
+									           console.log(errorMessage); // Optional
+									       }
+									    });
+									}  </pre></code>
+									<br/>
+									File can be appended to form data, as below
+									<br/>
+									fd.append("fileToUpload", $('#filename').get(0).files[0]);
+									<br/>
+									For drag and drop
+									<br/>
+									var files = e.dataTransfer.files;
+									<br/>
+									fd.append("fileToUpload", files[i]);  
+
+						      </div>
+						    </div>
+						  </div>
+
+						  <div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="heading51">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse51" aria-expanded="false" aria-controls="collapse44">
+						         	51.	Explain about regular expression.
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapse51" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading51">
+						      <div class="panel-body">
+						       onreadystatechange	Stores a function (or the name of a function) to be called automatically each time the readyState property changes<br/>
+						       <br/>
+									/pattern/modifiers;<br/>
+									<br/>
+									var str = "Visit W3Schools";<br/>
+									var n = str.search(/w3schools/i);<br/>
+									<br/>
+									ans: 6 <br/>
+									<br/>
+									var	str = "Visit Microsoft!";<br/>
+									var res = str.replace(/microsoft/i, "W3Schools");<br/>
+									<br/>
+									ans: Visit W3Schools!<br/>
+									<br/>
+									modifiers: i, g, m (multiline)<br/>
+									<br/>
+									<br/>
+									test()<br/>
+									<br/>
+									/e/.test("The best things in life are free!");<br/>
+									<br/>
+									ans: true<br/>
+									<br/>
+									exec() // searches for the pattern and returns the found text<br/>
+									<br/>
+									/e/.exec("The best things in life are free!");<br/>
+									<br/>
+									ans: e<br/>	
+									<br/>
+									/^[A-Z]/.test("Abcd");<br/>
+									<br/>
+									ans: true, it checks if the first character is upper case<br/>
+									<br/>
+									/^\d{4}-\d{4}-\d{4}-\d{4}$/.test("1234-5673-2345-3213");<br/>
+									<br/>
+									ans: true	<br/>
+									<br/>
+									/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test("me-info@example.com");<br/>
+									<br/>
+									ans: true<br/>
+									<br/>
+									<br/>
+									str= " w3resource "<br/>
+									result = str.replace(/^\s+|\s+$/g, '');<br/>
+									<br/>
+									ans:w3resource<br/>
+									<br/>
+									<br/>
+									str="Albert Einstein was born in Ulm, on 14/03/1879."<br/>
+									dateformat = /(\d\d?)\/(\d\d?)\/(\d{4})/;<br/>
+									str.match(dateformat)<br/>
+									<br/>
+									ans: true<br/>
+									<br/>
+									<br/>
+									str1= "The quick brown fox jumps over the lazy dog."<br/>
+									//exclude  start and end white-space  <br/>
+									str1 = str1.replace(/(^\s*)|(\s*$)/gi,"");  <br/>
+									//convert 2 or more spaces to 1    <br/>
+									str1 = str1.replace(/[ ]{2,}/gi," ");  <br/>
+									// exclude newline with a start spacing   <br/> 
+									str1 = str1.replace(/\n /,"\n");  <br/>
+									wordcount= str1.split(' ').length; //10 <br/>
+									<br/>
+									<br/>
+									<table border="1" cellspacing="0" cellpadding="0" width="100%">
+									    <tbody>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <strong>Modifier</strong>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    <strong>Description</strong>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_i.asp">i</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Perform case-insensitive matching
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_g.asp">g</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Perform a global match (find all matches rather than stopping after the first match)
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_m.asp">m</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Perform multiline matching
+									                </p>
+									            </td>
+									        </tr>
+									    </tbody>
+									</table>
+									<br/>
+									<br/>
+
+									<table border="1" cellspacing="0" cellpadding="0" width="100%">
+									    <tbody>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <strong>Expression</strong>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    <strong>Description</strong>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_charset.asp">[abc]</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find any character between the brackets
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_charset_not.asp">[^abc]</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find any character NOT between the brackets
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_0-9.asp">[0-9]</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find any digit between the brackets
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_not_0-9.asp">[^0-9]</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find any digit NOT between the brackets
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_xy.asp">(x|y)</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find any of the alternatives specified
+									                </p>
+									            </td>
+									        </tr>
+									    </tbody>
+									</table>
+
+									<br/>
+									<br/>
+
+									<table border="1" cellspacing="0" cellpadding="0" width="100%">
+									    <tbody>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <strong>Metacharacter</strong>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    <strong>Description</strong>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_dot.asp">.</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a single character, except newline or line terminator
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_wordchar.asp">\w</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a word character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_wordchar_non.asp">\W</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a non-word character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_digit.asp">\d</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a digit
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_digit_non.asp">\D</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a non-digit character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_whitespace.asp">\s</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a whitespace character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_whitespace_non.asp">\S</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a non-whitespace character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_begin.asp">\b</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a match at the beginning/end of a word
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_begin_not.asp">\B</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a match not at the beginning/end of a word
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nul.asp">\0</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a NUL character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_newline.asp">\n</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a new line character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_formfeed.asp">\f</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a form feed character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_carriagereturn.asp">\r</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a carriage return character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_tab.asp">\t</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a tab character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_vtab.asp">\v</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find a vertical tab character
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_octal.asp">\xxx</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find the character specified by an octal number xxx
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_hex.asp">\xdd</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find the character specified by a hexadecimal number dd
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_unicode_hex.asp">\uxxxx</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Find the Unicode character specified by a hexadecimal number xxxx
+									                </p>
+									            </td>
+									        </tr>
+									    </tbody>
+									</table>
+									<br/>
+									<br/>
+									<table border="1" cellspacing="0" cellpadding="0" width="100%">
+									    <tbody>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <strong>Quantifier</strong>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    <strong>Description</strong>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_onemore.asp">n+</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains at least one <em>n</em>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_zeromore.asp">n*</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains zero or more occurrences of <em>n</em>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_zeroone.asp">n?</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains zero or one occurrences of <em>n</em>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nx.asp">n{X}</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains a sequence of <em>X</em> <em>n</em>'s
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nxy.asp">n{X,Y}</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains a sequence of X to Y <em>n</em>'s
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nxcomma.asp">n{X,}</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that contains a sequence of at least X <em>n</em>'s
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_ndollar.asp">n$</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string with <em>n</em> at the end of it
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_ncaret.asp">^n</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string with <em>n</em> at the beginning of it
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nfollow.asp">?=n</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that is followed by a specific string <em>n</em>
+									                </p>
+									            </td>
+									        </tr>
+									        <tr>
+									            <td width="21%" valign="top">
+									                <p>
+									                    <a href="http://www.w3schools.com/jsref/jsref_regexp_nfollow_not.asp">?!n</a>
+									                </p>
+									            </td>
+									            <td width="78%" valign="top">
+									                <p>
+									                    Matches any string that is not followed by a specific string <em>n</em>
+									                </p>
+									            </td>
+									        </tr>
+									    </tbody>
+									</table>
+						      </div>
+						    </div>
+						  </div>
+
+
+						  <!-- -->
+
+
+						</div>
+
+			  	</div>
+
+			  </div>
+			</div>
+
+
+
+
+			
+		</div>
+
+		<script src="js/jquery-1.11.3.min.js"></script>
+		<script src="jquery-ui-1.11.4/jquery-ui.min.js"></script>
+		<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+		<script src="js/ie10-viewport-bug-workaround.js"></script>
+		<script src="js/codeSnippets.js"></script>
+		<script src="js/codeEditorJs.js"></script>
+
+	</body>
+</html>
